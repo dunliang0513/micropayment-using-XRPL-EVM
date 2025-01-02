@@ -1,2 +1,2 @@
-# micropayment-using-XRPL-EVM
+# Micropayment Using XRPL EVM
 Leverage XRPL and EVM sidechain for micropayment
