@@ -61,6 +61,27 @@ async function main() {
         }
     } catch (error) {
         console.error('Error sending payment:', error);
+    try{
+         // 1. Create PaymentChannelFund Transaction
+        const paymentChannelFund = {
+            TransactionType: "PaymentChannelFund",
+            Account: senderWallet.address,
+            Channel: channelID,
+            Amount: "500000", // Additional amount in drops (1 XRP = 1,000,000 drops)
+        };
+
+        // 2. Submit the Transaction
+        const response = await client.submitAndWait(paymentChannelFund, { wallet: senderWallet });
+
+        console.log("Payment Channel Funded:", response);
+
+        // 3. Check the Funded Channel
+        const check = await client.request({
+            command: "account_channels",
+            account: senderWallet.address
+        });
+        console.log(check);
+
     } finally {
         // Disconnect from XRPL
         await client.disconnect();
